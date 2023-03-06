@@ -4,3 +4,19 @@ plugins {
     id 'com.android.library' version '7.4.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
 }
+
+ext {
+
+    versionMajor = 1
+    versionMinor = 0
+    versionPatch = 0
+
+    versionCode = 1
+    versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+    versionYear = 2023
+
+}
+
+allprojects {
+    apply from: "${rootProject.projectDir}/flavors.gradle"
+}

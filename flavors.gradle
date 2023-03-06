@@ -1,0 +1,29 @@
+ext {
+    variantConfig = {
+        flavorDimensions 'variant'
+
+        productFlavors {
+            staging {
+                dimension 'variant'
+            }
+
+            production {
+                dimension 'variant'
+            }
+        }
+    }
+
+    versionVariables = {
+        productFlavors {
+            staging {
+                buildConfigField("long", "VERSION_CODE", "${defaultConfig.versionCode}")
+                buildConfigField("String","VERSION_NAME","\"${defaultConfig.versionName}\"")
+            }
+
+            production {
+                buildConfigField("long", "VERSION_CODE", "${defaultConfig.versionCode}")
+                buildConfigField("String","VERSION_NAME","\"${defaultConfig.versionName}\"")
+            }
+        }
+    }
+}
