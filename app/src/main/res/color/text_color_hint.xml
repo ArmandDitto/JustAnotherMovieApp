@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:color="@color/text_input_layout_hint_text_color"/>
+
+    <item
+        android:color="@color/text_input_layout_hint_text_color_focused"
+        android:state_enabled="false"/>
+
+</selector>

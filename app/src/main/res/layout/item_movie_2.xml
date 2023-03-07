@@ -26,14 +26,11 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/blackTransparent"
                 android:padding="5dp"
                 android:textAlignment="center"
-                android:textAppearance="@style/StyleTitleMedium.Medium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/white"
                 tools:text="Si buta dari Gua Hantu " />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Toolbar title text color -->
+        <item name="titleTextColor">@color/text_android_white_default</item>
+
+        <!-- Toolbar subtitle text color -->
+        <item name="subtitleTextColor">@color/text_android_white_default</item>
+
+        <!-- Action menu text color -->
+        <item name="actionMenuTextColor">@color/text_android_white_default</item>
+
+        <!-- Icon tint (navigation icon, overflow menu dots) -->
+        <item name="colorControlNormal">@color/text_android_white_default</item>
+
+        <!-- Popup menu text color -->
+        <item name="android:textColor">?attr/appTheme_textColorDefault</item>
+    </style>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="appTheme_textColorDefault" format="color" />
+    <attr name="appTheme_textColorHint" format="color" />
+    <attr name="appTheme_textColorDisabled" format="color" />
+
+    <attr name="appTheme_textColorDefaultInverse" format="color" />
+    <attr name="appTheme_textColorHintInverse" format="color" />
+    <attr name="appTheme_textColorDisabledInverse" format="color" />
+
+    <attr name="appTheme_ripple" format="color" />
+
+    <attr name="myCustomTheme_textColorDefault" format="color" />
+    <attr name="myCustomTheme_textColorHint" format="color" />
+    <attr name="myCustomTheme_textColorDisabled" format="color" />
+
+    <attr name="myCustomTheme_textColorDefaultInverse" format="color" />
+    <attr name="myCustomTheme_textColorHintInverse" format="color" />
+    <attr name="myCustomTheme_textColorDisabledInverse" format="color" />
+
+</resources>

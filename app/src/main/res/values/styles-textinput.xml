@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextInput" parent="Widget.Design.TextInputLayout" />
+
+    <style name="TextInput.White">
+        <item name="hintTextColor">@color/edittext_android_white_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_white_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.White</item>
+    </style>
+
+    <style name="TextInput.Black">
+        <item name="hintTextColor">@color/edittext_android_black_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_black_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.Black</item>
+    </style>
+
+    <style name="TextInputOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+    <style name="TextInputOutlinedBox.White">
+        <item name="boxStrokeColor">@color/textinput_border_white</item>
+        <item name="hintTextColor">@color/edittext_android_white_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_white_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.White</item>
+    </style>
+
+    <style name="TextInputOutlinedBox.Black">
+        <item name="boxStrokeColor">@color/textinput_border_black</item>
+        <item name="hintTextColor">@color/edittext_android_black_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_black_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.Black</item>
+    </style>
+
+    <style name="TextInputOutlinedBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense" />
+
+    <style name="TextInputOutlinedBox.Dense.White">
+        <item name="boxStrokeColor">@color/textinput_border_white</item>
+        <item name="hintTextColor">@color/edittext_android_white_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_white_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.White</item>
+    </style>
+
+    <style name="TextInputOutlinedBox.Dense.Black">
+        <item name="boxStrokeColor">@color/textinput_border_black</item>
+        <item name="hintTextColor">@color/edittext_android_black_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_black_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.Black</item>
+    </style>
+
+    <style name="TextInputFilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox" />
+
+    <style name="TextInputFilledBox.White">
+        <item name="hintTextColor">@color/edittext_android_white_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_white_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.White</item>
+    </style>
+
+    <style name="TextInputFilledBox.Black">
+        <item name="hintTextColor">@color/edittext_android_black_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_black_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.Black</item>
+    </style>
+
+    <style name="TextInputFilledBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense" />
+
+    <style name="TextInputFilledBox.Dense.White">
+        <item name="hintTextColor">@color/edittext_android_white_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_white_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.White</item>
+    </style>
+
+    <style name="TextInputFilledBox.Dense.Black">
+        <item name="hintTextColor">@color/edittext_android_black_hint</item>
+        <item name="android:textColorHint">@color/edittext_android_black_hint</item>
+        <item name="android:theme">@style/AppColors.Accent.Black</item>
+    </style>
+
+</resources>

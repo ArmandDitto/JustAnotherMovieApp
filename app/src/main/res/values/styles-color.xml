@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppColors" />
+
+    <style name="AppColors.Accent" />
+
+    <style name="AppColors.Accent.White">
+        <item name="colorAccent">@color/text_android_white_default</item>
+        <item name="colorControlNormal">@color/text_android_white_default</item>
+        <item name="colorControlHighlight">@color/text_android_white_default</item>
+        <item name="colorControlActivated">@color/text_android_white_default</item>
+    </style>
+
+    <style name="AppColors.Accent.Black">
+        <item name="colorAccent">@color/text_android_black_default</item>
+        <item name="colorControlNormal">@color/text_android_black_default</item>
+        <item name="colorControlHighlight">@color/text_android_black_default</item>
+        <item name="colorControlActivated">@color/text_android_black_default</item>
+    </style>
+
+</resources>

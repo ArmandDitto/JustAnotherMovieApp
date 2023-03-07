@@ -1,43 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="CustomMaterial" parent="Widget.MaterialComponents.CardView">
-        <item name="android:backgroundTint">@android:color/white</item>
+    <style name="MyCustomTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="myCustomTheme_textColorDefault">@color/color_primary</item>
+        <item name="myCustomTheme_textColorHint">@color/color_primary_hint</item>
+        <item name="myCustomTheme_textColorDisabled">@color/color_primary_disabled</item>
+
+        <item name="myCustomTheme_textColorDefaultInverse">@color/text_android_white_default</item>
+        <item name="myCustomTheme_textColorHintInverse">@color/text_android_white_hint</item>
+        <item name="myCustomTheme_textColorDisabledInverse">@color/text_android_white_disabled</item>
+
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_darker</item>
+        <item name="colorAccent">@color/color_primary</item>
+
+        <item name="dialogTheme">@style/MyCustomDialogTheme</item>
+        <item name="alertDialogTheme">@style/MyCustomDialogTheme.Alert</item>
+
+        <item name="buttonStyle">@style/MyCustomButtonTheme.Rounded</item>
+        <item name="android:fontFamily">@font/poppins</item>
+
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="StyleTitleMedium.Bold20" parent="TextAppearance.Material3.TitleMedium">
-        <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:textSize">20sp</item>
+    <style name="MyCustomTheme.Transparent">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_darker</item>
+        <item name="colorAccent">@color/color_primary</item>
+
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="StyleTitleMedium.Medium" parent="TextAppearance.Material3.TitleMedium">
-        <item name="fontFamily">@font/poppins_regular</item>
+    <style name="MyCustomDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_darker</item>
+        <item name="colorAccent">@color/color_primary</item>
     </style>
 
-    <style name="StyleBodyMedium.Regular" parent="TextAppearance.Material3.BodyMedium">
-        <item name="fontFamily">@font/poppins_regular</item>
+    <style name="MyCustomDialogTheme.Alert">
+        <item name="android:windowTitleStyle">@style/MyCustomDialogTheme.Alert.Title</item>
     </style>
 
-    <style name="StyleBodyMedium.Medium" parent="TextAppearance.Material3.BodyMedium">
-        <item name="fontFamily">@font/poppins_regular</item>
+    <style name="MyCustomDialogTheme.Alert.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/color_primary</item>
     </style>
 
-    <style name="StyleBodySmall.Medium" parent="TextAppearance.Material3.BodySmall">
-        <item name="fontFamily">@font/poppins_regular</item>
+    <style name="MyCustomButtonTheme" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/btn_red_text</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="StyleLabelMedium.Bold" parent="TextAppearance.Material3.LabelMedium">
-        <item name="fontFamily">@font/poppins_regular</item>
+    <style name="MyCustomButtonTheme.Rounded">
+        <item name="android:textColor">@color/btn_red_text</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="StyleLabelSmall.Regular10" parent="TextAppearance.Material3.LabelSmall">
-        <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:textSize">10sp</item>
+    <style name="MyCustomButtonTheme.Stroke">
+        <item name="android:textColor">@color/btn_white_text</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="StyleLabelSmall.Bold10" parent="TextAppearance.Material3.LabelSmall">
-        <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:textSize">10sp</item>
+    <style name="MyCustomButtonTheme.White">
+        <item name="android:textColor">@color/btn_white_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyCustomButtonTheme.White.Rounded">
+        <item name="android:textColor">@color/btn_white_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyCustomToolbarTheme" parent="ToolbarTheme">
+        <!-- Toolbar title text color -->
+        <item name="titleTextColor">@color/color_primary</item>
+
+        <!-- Toolbar subtitle text color -->
+        <item name="subtitleTextColor">@color/color_primary</item>
+
+        <!-- Action menu text color -->
+        <item name="actionMenuTextColor">@color/color_primary</item>
+
+        <!-- Action menu icon color -->
+        <item name="iconTint">@color/color_primary</item>
+
+        <!-- Icon tint (navigation icon, overflow menu dots) -->
+        <item name="colorControlNormal">@color/color_primary</item>
+
+        <!-- Popup menu text color -->
+        <item name="android:textColor">?attr/appTheme_textColorDefault</item>
+    </style>
+
+    <style name="MyCustomToolbarTheme.Red" parent="MyCustomToolbarTheme">
+        <!-- Toolbar title text color -->
+        <item name="titleTextColor">?attr/appTheme_textColorDefault</item>
+        <item name="subtitleTextColor">?attr/appTheme_textColorDefault</item>
+        <item name="actionMenuTextColor">@color/color_primary</item>
+        <item name="iconTint">@color/color_primary</item>
+        <item name="colorControlNormal">@color/color_primary</item>
+    </style>
+
+    <style name="MyCustomToolbarTheme.White" parent="MyCustomToolbarTheme">
+        <!-- Toolbar title text color -->
+        <item name="titleTextColor">@color/text_android_white_default</item>
+        <item name="subtitleTextColor">@color/text_android_white_default</item>
+        <item name="actionMenuTextColor">@color/text_android_white_default</item>
+        <item name="iconTint">@color/text_android_white_default</item>
+        <item name="colorControlNormal">@color/text_android_white_default</item>
+    </style>
+
+    <!-- Style for Drawer Navigation -->
+    <style name="DrawerTextStyle" >
+        <item name="android:textColor">@color/text_android_black_default</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style for Bottom Navigation -->
+    <style name="BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearance.BottomNavigationView.Active</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.BottomNavigationView.Inactive</item>
+    </style>
+
+    <style name="TextAppearance"/>
+    <style name="TextAppearance.BottomNavigationView"/>
+
+    <style name="TextAppearance.BottomNavigationView.Inactive">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.BottomNavigationView.Active">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>
