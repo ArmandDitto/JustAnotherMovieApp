@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomMaterial" parent="Widget.MaterialComponents.CardView">
+        <item name="android:backgroundTint">@android:color/white</item>
+    </style>
+
+    <style name="StyleTitleMedium.Bold20" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="StyleTitleMedium.Medium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="StyleBodyMedium.Regular" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="StyleBodyMedium.Medium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="StyleBodySmall.Medium" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="StyleLabelMedium.Bold" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="StyleLabelSmall.Regular10" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="StyleLabelSmall.Bold10" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+</resources>

@@ -9,6 +9,7 @@ import com.android.justordinarymovieapp.data.paging.MoviePagingSource
 import com.android.justordinarymovieapp.data.repository.MovieRepository
 import com.android.justordinarymovieapp.model.MovieResponse
 import com.android.justordinarymovieapp.base.paging.PagingUiModel
+import com.android.justordinarymovieapp.data.paging.MovieByGenrePagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
@@ -27,6 +28,31 @@ class MovieViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             Pager(PagingConfig(pageSize = 10)) {
                 MoviePagingSource(repository)
+            }.flow
+                .map { pagingData ->
+                    pagingData.map { PagingUiModel.DataItem(it) }
+                }
+                .map {
+                    it.insertSeparators { before, after ->
+                        if (before != null && after == null) {
+                            PagingUiModel.SeparatorItem(
+                                ""
+                            )
+                        } else {
+                            return@insertSeparators null
+                        }
+                    }
+                }
+                .cachedIn(viewModelScope).collectLatest {
+                    _moviePagingLiveData.postValue(it)
+                }
+        }
+    }
+
+    fun fetchMoviesByGenre(genreId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            Pager(PagingConfig(pageSize = 10)) {
+                MovieByGenrePagingSource(repository, genreId)
             }.flow
                 .map { pagingData ->
                     pagingData.map { PagingUiModel.DataItem(it) }

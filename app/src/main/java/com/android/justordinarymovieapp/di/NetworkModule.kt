@@ -1,6 +1,6 @@
 package com.android.justordinarymovieapp.di
 
-import com.android.justordinarymovieapp.JustAnotherMovieApp
+import android.content.Context
 import com.android.justordinarymovieapp.base.network.ApiService
 import com.android.justordinarymovieapp.utils.JNIUtil
 import com.android.justordinarymovieapp.utils.NetworkHelper
@@ -9,8 +9,10 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -19,7 +21,7 @@ object NetworkModule {
 
     val modules = module {
         single { provideRetrofit(get()) }
-        single { provideOkHttpClient() }
+        single { provideOkHttpClient(androidContext()) }
         single { provideAPI(get()) }
     }
 
@@ -27,17 +29,17 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(JNIUtil.baseUrl)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    private fun provideOkHttpClient(): OkHttpClient {
+    private fun provideOkHttpClient(context: Context): OkHttpClient {
         val chuckCollector = ChuckerCollector(
-            JustAnotherMovieApp.instance.applicationContext,
+            context,
             retentionPeriod = RetentionManager.Period.ONE_DAY
         )
         val chuckerInterceptor =
-            ChuckerInterceptor.Builder(JustAnotherMovieApp.instance.applicationContext)
+            ChuckerInterceptor.Builder(context)
                 .collector(chuckCollector)
                 .maxContentLength(250_000L)
                 .alwaysReadResponseBody(true)

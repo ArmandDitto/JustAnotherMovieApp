@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.android.justordinarymovieapp.presentation.movie.MovieActivity
 import com.android.justordinarymovieapp.presentation.movie.MovieListActivity
 
 class MainActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            MovieListActivity.launchIntent(this)
+            MovieActivity.launchIntent(this)
             finish()
         }, 3000)
     }
