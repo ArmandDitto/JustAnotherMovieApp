@@ -36,6 +36,12 @@
             android:name=".presentation.movie.MovieActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.movie.DetailMovieActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
     </application>
 
 </manifest>

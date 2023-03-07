@@ -32,5 +32,8 @@ class MovieRepositoryImpl(
         return safeApiCall(dispatcher) { api.getAllGenres(JNIUtil.apiKey) }
     }
 
+    override suspend fun getMovieDetails(movieId: Int): ResultWrapper<MovieResponse> {
+        return safeApiCall(dispatcher) { api.getMovieDetails(movieId, JNIUtil.apiKey) }
+    }
 
 }

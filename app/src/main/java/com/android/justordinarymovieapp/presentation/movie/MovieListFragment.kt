@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.paging.PagingLoadStateAdapter
 import com.android.justordinarymovieapp.databinding.FragmentMovieListBinding
@@ -16,6 +15,7 @@ import com.android.justordinarymovieapp.utils.setAutoNullAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
 
@@ -59,9 +59,7 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     private fun setupView() {
         movieAdapter = MovieAdapter2(requireContext()).apply {
             onRootClick = {
-                it.id?.let { id ->
-//                    viewModel.fetchMoviesByGenre(id)
-                }
+                it.id?.let { id -> DetailMovieActivity.launchIntent(requireContext(), id) }
             }
         }
 

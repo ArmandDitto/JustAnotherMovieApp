@@ -38,11 +38,11 @@ class GenreAdapter : BaseBindingAdapter<BaseBindingViewHolder, ItemGenreBinding>
             tvGenreName.text = data.name
 
             if(position == selectedItemPos) {
-                tvGenreName.setTextColor(context.getColor(R.color.soft_green))
-                cvGenre.strokeColor = context.getColor(R.color.soft_green)
+                tvGenreName.setTextColor(context.getColor(R.color.color_primary))
+                cvGenre.strokeColor = context.getColor(R.color.color_primary)
             } else {
-                tvGenreName.setTextColor(context.getColor(R.color.dark))
-                cvGenre.strokeColor = context.getColor(R.color.dark)
+                tvGenreName.setTextColor(context.getColor(R.color.text_android_black_default))
+                cvGenre.strokeColor = context.getColor(R.color.text_android_black_default)
             }
 
             cvGenre.setOnClickListener {

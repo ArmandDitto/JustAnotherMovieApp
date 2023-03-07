@@ -18,4 +18,8 @@ interface MovieRepository {
 
     suspend fun getAllGenres(): ResultWrapper<GenreResponse>
 
+    suspend fun getMovieDetails(
+        movieId: Int,
+    ): ResultWrapper<MovieResponse>
+
 }

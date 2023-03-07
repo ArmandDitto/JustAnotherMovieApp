@@ -4,6 +4,7 @@ import com.android.justordinarymovieapp.base.model.PagingWrapper
 import com.android.justordinarymovieapp.model.MovieResponse
 import com.android.justordinarymovieapp.model.genre.GenreResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -25,5 +26,11 @@ interface ApiService {
         @Query("with_genres") genreId: Int,
         @Query("page") page: Int,
     ): PagingWrapper<List<MovieResponse>>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String,
+    ): MovieResponse
 
 }
