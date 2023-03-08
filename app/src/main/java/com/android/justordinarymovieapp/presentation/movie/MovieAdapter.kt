@@ -1,5 +1,6 @@
 package com.android.justordinarymovieapp.presentation.movie
 
+import android.content.Context
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -10,8 +11,9 @@ import com.android.justordinarymovieapp.databinding.LayoutPagingLoadStateBinding
 import com.android.justordinarymovieapp.model.MovieResponse
 import com.android.justordinarymovieapp.base.paging.PagingUiModel
 import com.android.justordinarymovieapp.utils.viewBinding
+import com.bumptech.glide.Glide
 
-class MovieAdapter() :
+class MovieAdapter(val context: Context) :
     PagingDataAdapter<PagingUiModel<MovieResponse>, RecyclerView.ViewHolder>(
         DiffUtilCallback()
     ) {
@@ -22,10 +24,15 @@ class MovieAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bindView(data: MovieResponse) {
             with(binding) {
-                tvMovieIndex.text = layoutPosition.toString()
-                tvMovieName.text = data.title
+                tvTitle.text = data.title
+                tvReleaseDate.text = data.releaseDate?.take(4)
+                tvRate.text = data.voteAverage.toString()
+                tvVoteCount.text = data.voteCount.toString()
+                Glide.with(context)
+                    .load("https://image.tmdb.org/t/p/original/${data.posterPath}")
+                    .into(binding.ivMovie)
 
-                root.setOnClickListener { onRootClick?.invoke(data) }
+                cvMovie.setOnClickListener { onRootClick?.invoke(data) }
             }
         }
     }
@@ -57,6 +64,7 @@ class MovieAdapter() :
                 is PagingUiModel.SeparatorItem -> (holder as PagingFooterTextViewHolder).bindView(
                     uiModel.description
                 )
+
                 null -> throw UnsupportedOperationException("Unknown view")
             }
         }

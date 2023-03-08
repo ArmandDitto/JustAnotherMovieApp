@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.paging.PagingLoadStateAdapter
 import com.android.justordinarymovieapp.databinding.FragmentMovieListBinding
@@ -20,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
 
     private val viewModel: MovieViewModel by viewModel()
-    private lateinit var movieAdapter: MovieAdapter2
+    private lateinit var movieAdapter: MovieAdapter
 
     private val genreId by lazy { arguments?.getInt(KEY_GENRE_ID, 0) }
 
@@ -37,7 +39,7 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     }
 
     private fun setUpObserver() {
-        viewModel.moviePagingLiveData.observe(this) {
+        viewModel.moviePagingLiveData.observe(viewLifecycleOwner) {
             movieAdapter.submitData(this.lifecycle, it)
         }
 
@@ -57,14 +59,20 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     }
 
     private fun setupView() {
-        movieAdapter = MovieAdapter2(requireContext()).apply {
+        movieAdapter = MovieAdapter(requireContext()).apply {
             onRootClick = {
-                it.id?.let { id -> DetailMovieActivity.launchIntent(requireContext(), id) }
+                it.id?.let { id ->
+                    val args = Bundle()
+                    args.putInt(KEY_MOVIE_ID, id)
+                    findNavController().navigate(
+                        R.id.action_movieListFragment_to_movieDetailFragment, args
+                    )
+                }
             }
         }
 
         binding.rvContent.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = LinearLayoutManager(requireContext())
             setAutoNullAdapter(movieAdapter.withLoadStateHeaderAndFooter(
                 header = PagingLoadStateAdapter().apply {
                     onRetry = { movieAdapter.refresh() }
@@ -79,6 +87,7 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     companion object {
 
         const val KEY_GENRE_ID = "KEY_GENRE_ID"
+        const val KEY_MOVIE_ID = "KEY_MOVIE_ID"
 
         fun newInstance(genreId: Int): MovieListFragment {
             return MovieListFragment().apply {

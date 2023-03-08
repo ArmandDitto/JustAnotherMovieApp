@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.model.ResultWrapper
 import com.android.justordinarymovieapp.databinding.FragmentGenreListBinding
-import com.android.justordinarymovieapp.presentation.movie.MovieListActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
 
     private val viewModel: GenreViewModel by viewModel()
     private lateinit var genreAdapter: GenreAdapter
-
-    private var genreId: Int = 0
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentGenreListBinding
         get() = FragmentGenreListBinding::inflate
@@ -27,8 +26,11 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
         genreAdapter = GenreAdapter().apply {
             onClick = {
                 it.id?.let { id ->
-                    genreId = id
-                    MovieListActivity.launchIntent(requireContext())
+                    val args = Bundle()
+                    args.putInt(KEY_GENRE_ID, id)
+                    findNavController().navigate(
+                        R.id.action_genreListFragment_to_movieListFragment, args
+                    )
                 }
             }
         }
@@ -59,7 +61,6 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
                 is ResultWrapper.Success -> {
                     binding.progressBar.visibility = View.GONE
                     it.value.genres?.let { genres -> genreAdapter.addItems(genres) }
-                    genreId = it.value.genres?.get(0)?.id ?: 0
                 }
 
                 is ResultWrapper.Error -> {
@@ -74,6 +75,8 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
     }
 
     companion object {
+
+        const val KEY_GENRE_ID = "KEY_GENRE_ID"
 
         fun newInstance(): GenreListFragment {
             return GenreListFragment().apply {

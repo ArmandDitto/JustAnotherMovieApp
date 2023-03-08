@@ -50,13 +50,13 @@ class MovieListActivity : BaseActivity<ActivityMovieListBinding>() {
     private fun setupListener() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-//            movieAdapter.refresh()
+            movieAdapter.refresh()
             viewModel.fetchMovieList()
         }
     }
 
     private fun setupView() {
-        movieAdapter = MovieAdapter().apply {
+        movieAdapter = MovieAdapter(this).apply {
             onRootClick = {
                 it.id?.let { _ ->
 
@@ -81,7 +81,6 @@ class MovieListActivity : BaseActivity<ActivityMovieListBinding>() {
 
         fun launchIntent(context: Context) {
             val intent = Intent(context, MovieListActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             context.startActivity(intent)
         }
 
