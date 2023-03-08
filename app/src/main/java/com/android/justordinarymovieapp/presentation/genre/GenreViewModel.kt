@@ -14,8 +14,8 @@ class GenreViewModel(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _genreLiveData = MutableLiveData<ResultWrapper<GenreResponse>>()
-    val genreLiveData: LiveData<ResultWrapper<GenreResponse>> = _genreLiveData
+    private val _genresLiveData = MutableLiveData<ResultWrapper<GenreResponse>>()
+    val genresLiveData: LiveData<ResultWrapper<GenreResponse>> = _genresLiveData
 
     init {
         fetchGenres()
@@ -23,7 +23,8 @@ class GenreViewModel(
 
     fun fetchGenres() {
         viewModelScope.launch(Dispatchers.IO) {
-            _genreLiveData.postValue(repository.getAllGenres())
+            _genresLiveData.postValue(ResultWrapper.Loading)
+            _genresLiveData.postValue(repository.getAllGenres())
         }
     }
 

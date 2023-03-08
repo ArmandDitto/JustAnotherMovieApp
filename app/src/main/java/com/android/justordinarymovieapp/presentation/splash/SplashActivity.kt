@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import com.android.justordinarymovieapp.base.BaseActivity
 import com.android.justordinarymovieapp.databinding.ActivitySplashBinding
+import com.android.justordinarymovieapp.presentation.genre.GenreListActivity
 import com.android.justordinarymovieapp.presentation.movie.MovieActivity
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
@@ -17,7 +18,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         super.onCreate(savedInstanceState)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            MovieActivity.launchIntent(this)
+            GenreListActivity.launchIntent(this)
             finish()
         }, 3000)
     }

@@ -27,6 +27,12 @@
 
         <activity
             android:screenOrientation="portrait"
+            android:name=".presentation.genre.GenreListActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
             android:name=".presentation.movie.MovieListActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />

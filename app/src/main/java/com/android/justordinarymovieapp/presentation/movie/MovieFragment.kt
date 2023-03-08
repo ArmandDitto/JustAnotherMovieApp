@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.model.ResultWrapper
 import com.android.justordinarymovieapp.databinding.FragmentMovieBinding
-import com.android.justordinarymovieapp.presentation.genre.GenreAdapter
+import com.android.justordinarymovieapp.presentation.genre.GenreLegacyAdapter
 import com.android.justordinarymovieapp.presentation.genre.GenreViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     private val viewModel: GenreViewModel by viewModel()
-    private lateinit var genreAdapter: GenreAdapter
+    private lateinit var genreAdapter: GenreLegacyAdapter
 
     private var genreId: Int = 0
 
@@ -28,7 +27,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        genreAdapter = GenreAdapter().apply {
+        genreAdapter = GenreLegacyAdapter().apply {
             onClick = {
                 it.id?.let { id ->
                     genreId = id
@@ -46,7 +45,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     private fun initObserver() {
-        viewModel.genreLiveData.observe(viewLifecycleOwner) {
+        viewModel.genresLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
 

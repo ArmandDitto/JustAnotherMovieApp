@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
+import com.android.justordinarymovieapp.utils.showErrorDialog
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
@@ -72,6 +71,26 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     @CallSuper
     open fun onBackStackChanged() {
         onBackPressCallback?.isEnabled = parentFragmentManager.fragments.lastOrNull() == this
+    }
+
+    fun showErrorDialog(
+        title: String? = null,
+        desc: String? = null,
+        btnPositiveText: String? = null,
+        onPositiveBtnClick: (() -> Unit)? = null,
+        onDismiss: (() -> Unit)? = null,
+        withCloseIcon: Boolean = false,
+        isCancelable: Boolean = false
+    ) {
+        activity?.supportFragmentManager?.showErrorDialog(
+            title = title,
+            desc = desc,
+            btnPositiveText = btnPositiveText,
+            onPositiveBtnClick = onPositiveBtnClick,
+            onDismiss = onDismiss,
+            withCloseIcon = withCloseIcon,
+            isCancelable = isCancelable
+        )
     }
 
 }
