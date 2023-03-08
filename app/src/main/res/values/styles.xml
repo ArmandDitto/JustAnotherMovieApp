@@ -23,7 +23,7 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="MyCustomTheme.Transparent">
+    <style name="MyCustomTheme.Transparent" parent="Theme.Material3.DayNight.Dialog">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_darker</item>
         <item name="colorAccent">@color/color_primary</item>
@@ -33,7 +33,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
     <style name="MyCustomDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">

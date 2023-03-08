@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.model.ResultWrapper
+import com.android.justordinarymovieapp.base.view.loading.ProgressDialog
 import com.android.justordinarymovieapp.databinding.FragmentGenreListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,16 +56,16 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
         viewModel.genresLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    ProgressDialog.show(requireContext())
                 }
 
                 is ResultWrapper.Success -> {
-                    binding.progressBar.visibility = View.GONE
+                    ProgressDialog.dismiss()
                     it.value.genres?.let { genres -> genreAdapter.addItems(genres) }
                 }
 
                 is ResultWrapper.Error -> {
-                    binding.progressBar.visibility = View.GONE
+                    ProgressDialog.dismiss()
                     showErrorDialog(
                         desc = it.message,
                         onPositiveBtnClick = { viewModel.fetchGenres() }
@@ -78,11 +79,5 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
 
         const val KEY_GENRE_ID = "KEY_GENRE_ID"
 
-        fun newInstance(): GenreListFragment {
-            return GenreListFragment().apply {
-                val bundle = Bundle()
-                arguments = bundle
-            }
-        }
     }
 }
