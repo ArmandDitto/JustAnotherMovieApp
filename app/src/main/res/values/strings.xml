@@ -2,10 +2,18 @@
 
     <string name="label_title_genre_list">Choose your genre</string>
     <string name="label_title_movie_list">%s Movies</string>
+    <string name="label_title_review_list">Review</string>
 
     <string name="label_movie_release_year">Release Year:</string>
     <string name="label_movie_vote_count">Vote Count:</string>
     <string name="label_movie_view_detail">View Detail</string>
+
+    <string name="label_movie_release_date">Release Date:</string>
+    <string name="label_movie_overview">Overview</string>
+    <string name="label_movie_trailer">Trailer</string>
+    <string name="label_movie_review">Review</string>
+
+    <string name="label_see_all">See All</string>
 
     <string name="error_no_internet_connection">Cannot connect to server: Please make sure you are connected to the Internet and try again.</string>
 

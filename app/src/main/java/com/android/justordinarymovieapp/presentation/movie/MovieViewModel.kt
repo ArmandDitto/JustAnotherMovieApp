@@ -64,12 +64,14 @@ class MovieViewModel(
 
     fun fetchDetailMovie(movieId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            _movieDetailLiveData.postValue(ResultWrapper.Loading)
             _movieDetailLiveData.postValue(repository.getMovieDetails(movieId))
         }
     }
 
     fun fetchMovieVideos(movieId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            _movieVideosLiveData.postValue(ResultWrapper.Loading)
             _movieVideosLiveData.postValue(repository.getMovieVideos(movieId))
         }
     }

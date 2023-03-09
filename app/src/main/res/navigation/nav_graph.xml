@@ -39,7 +39,7 @@
         android:id="@+id/movieDetailFragment"
         android:name="com.android.justordinarymovieapp.presentation.movie.MovieDetailFragment"
         android:label="MovieDetailFragment"
-        tools:layout="@layout/fragment_movie_detail_2">
+        tools:layout="@layout/fragment_movie_detail">
         <action
             android:id="@+id/action_movieDetailFragment_to_reviewListFragment"
             app:destination="@id/reviewListFragment" />

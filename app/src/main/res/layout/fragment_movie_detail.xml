@@ -97,7 +97,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Release Date: "
+                                    android:text="@string/label_movie_release_date"
                                     android:textSize="@dimen/text_default" />
 
                                 <TextView
@@ -119,7 +119,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Overview"
+                                    android:text="@string/label_movie_overview"
                                     android:textSize="@dimen/text_xlarge"
                                     android:textStyle="bold"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -128,6 +128,7 @@
                                     android:id="@+id/tvMovieOverview"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:paddingBottom="@dimen/margin_xlarge"
                                     android:textSize="@dimen/text_large"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@id/ivMovie"
@@ -138,32 +139,32 @@
                                     android:id="@+id/layoutTrailer"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_xlarge"
-                                    android:orientation="vertical">
+                                    android:orientation="vertical"
+                                    android:paddingBottom="@dimen/margin_xlarge">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Trailer"
+                                        android:text="@string/label_movie_trailer"
                                         android:textSize="@dimen/text_xlarge"
                                         android:textStyle="bold" />
 
                                     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                                         android:id="@+id/youtube_player_view"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"/>
+                                        android:layout_height="wrap_content" />
 
                                 </LinearLayout>
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/layoutReview"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_xlarge">
+                                    android:layout_height="wrap_content">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Review"
+                                        android:text="@string/label_movie_review"
                                         android:textSize="@dimen/text_xlarge"
                                         android:textStyle="bold"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +174,7 @@
                                         android:id="@+id/tvSeeAllReview"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="See All"
+                                        android:text="@string/label_see_all"
                                         android:textColor="@color/color_primary"
                                         android:textSize="@dimen/text_large"
                                         app:layout_constraintEnd_toEndOf="parent"

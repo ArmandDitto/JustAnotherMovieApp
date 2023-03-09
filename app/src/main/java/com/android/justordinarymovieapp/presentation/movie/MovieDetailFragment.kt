@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.model.ResultWrapper
-import com.android.justordinarymovieapp.databinding.FragmentMovieDetail2Binding
+import com.android.justordinarymovieapp.base.view.loading.ProgressDialog
+import com.android.justordinarymovieapp.databinding.FragmentMovieDetailBinding
 import com.android.justordinarymovieapp.model.MovieResponse
+import com.android.justordinarymovieapp.model.review.Review
 import com.android.justordinarymovieapp.presentation.review.ReviewAdapter
 import com.android.justordinarymovieapp.presentation.review.ReviewViewModel
 import com.android.justordinarymovieapp.utils.Constants
@@ -22,7 +24,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
+class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
 
     private val movieViewModel: MovieViewModel by viewModel()
     private val reviewViewModel: ReviewViewModel by viewModel()
@@ -31,8 +33,8 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
 
     private lateinit var reviewAdapter: ReviewAdapter
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieDetail2Binding
-        get() = FragmentMovieDetail2Binding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieDetailBinding
+        get() = FragmentMovieDetailBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,24 +42,22 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
         setUpView()
         setupListener()
         setUpObserver()
-        movieId?.let { movieViewModel.fetchDetailMovie(it) }
-        reviewViewModel.fetchReviews(28)
-        movieId?.let { movieViewModel.fetchMovieVideos(it) }
+        fetchMovieDetail()
+        fetchMovieReview()
+        fetchMovieVideo()
 
     }
-
-
 
     private fun setUpView() {
         binding.tvSeeAllReview.setOnClickListener {
             val args = Bundle()
             movieId?.let { id -> args.putInt(Constants.KEY_MOVIE_ID_BUNDLE, id) }
-            findNavController().navigate(R.id.action_movieDetailFragment_to_reviewListFragment, args)
+            findNavController().navigate(
+                R.id.action_movieDetailFragment_to_reviewListFragment, args
+            )
         }
 
-        reviewAdapter = ReviewAdapter().apply {
-
-        }
+        reviewAdapter = ReviewAdapter().apply {}
 
         binding.rvReview.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -68,45 +68,45 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
     private fun setupListener() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-            movieId?.let { movieViewModel.fetchMovieVideos(it) }
-        }
-    }
-
-    private fun setUpYoutubePlayer(videoId: String?) {
-        if (videoId != null) {
-            binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    youTubePlayer.cueVideo(videoId, 0f)
-                }
-            })
-        } else {
-            binding.layoutTrailer.goneView()
+            fetchMovieDetail()
+            fetchMovieVideo()
+            fetchMovieReview()
         }
     }
 
     private fun setUpObserver() {
         movieViewModel.movieDetailLiveData.observe(viewLifecycleOwner) {
-            when(it) {
-                ResultWrapper.Loading -> {
-
+            when (it) {
+                is ResultWrapper.Loading -> {
+                    ProgressDialog.show(requireContext())
                 }
+
                 is ResultWrapper.Error -> {
-
+                    ProgressDialog.dismiss()
+                    showErrorDialog(
+                        onPositiveBtnClick = { fetchMovieDetail() },
+                        isCancelable = true
+                    )
                 }
+
                 is ResultWrapper.Success -> {
-                    onDetailMovieSuccess(it.value)
+                    ProgressDialog.dismiss()
+                    onGetDetailMovieSuccess(it.value)
                 }
             }
         }
         movieViewModel.movieVideosLiveData.observe(viewLifecycleOwner) {
-            when(it) {
-                ResultWrapper.Loading -> {
-
+            when (it) {
+                is ResultWrapper.Loading -> {
+                    ProgressDialog.show(requireContext())
                 }
+
                 is ResultWrapper.Error -> {
-
+                    ProgressDialog.dismiss()
                 }
+
                 is ResultWrapper.Success -> {
+                    ProgressDialog.dismiss()
                     val selectedVideo = it.value.results?.find { video ->
                         video.type.equals("Trailer")
                     }
@@ -117,26 +117,59 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
             }
         }
         reviewViewModel.reviewLiveData.observe(viewLifecycleOwner) {
-            when(it) {
-                ResultWrapper.Loading -> {
-
+            when (it) {
+                is ResultWrapper.Loading -> {
+                    ProgressDialog.show(requireContext())
                 }
+
                 is ResultWrapper.Error -> {
-
+                    ProgressDialog.dismiss()
                 }
+
                 is ResultWrapper.Success -> {
-                    it.value.results?.take(1).let { result ->
-                        if (result != null) {
-                            reviewAdapter.addItems(result)
-                        }
-                    }
+                    ProgressDialog.dismiss()
+                    it.value.results?.let { reviewList -> onGetReviewMovieSuccess(reviewList) }
                 }
             }
         }
     }
 
-    private fun onDetailMovieSuccess(data : MovieResponse) {
+    private fun setUpYoutubePlayer(videoId: String?) {
+        if (videoId != null) {
+            binding.youtubePlayerView.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    youTubePlayer.cueVideo(videoId, 0f)
+                }
+            })
+        } else {
+            binding.layoutTrailer.goneView()
+        }
+    }
 
+    private fun fetchMovieDetail() {
+        movieId?.let { movieViewModel.fetchDetailMovie(it) }
+    }
+
+    private fun fetchMovieReview() {
+        movieId?.let { reviewViewModel.fetchReviews(it) }
+    }
+
+    private fun fetchMovieVideo() {
+        movieId?.let { movieViewModel.fetchMovieVideos(it) }
+    }
+
+    private fun onGetReviewMovieSuccess(data: List<Review>) {
+        data.take(1).let { result ->
+            if(result.isNotEmpty()) {
+                reviewAdapter.addItems(result)
+            } else {
+                binding.layoutReview.goneView()
+            }
+        }
+    }
+
+    private fun onGetDetailMovieSuccess(data: MovieResponse) {
         binding.tvMovieTitle.text = data.title
         binding.tvMovieReleaseDate.text = data.releaseDate
         binding.tvMovieOverview.text = data.overview

@@ -19,6 +19,7 @@
     <color name="color_rate_good">#008000</color>
 
     <color name="color_glossy_background">#DDDDDD</color>
+    <color name="color_glossy_background_alt">#737373</color>
 
     <color name="grey_button">#F4F4F4</color>
     <color name="grey_button_darker">#696969</color>

@@ -10,6 +10,7 @@ import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.model.ResultWrapper
 import com.android.justordinarymovieapp.databinding.FragmentGenreListBinding
+import com.android.justordinarymovieapp.presentation.movie.MovieListFragmentDirections
 import com.android.justordinarymovieapp.utils.Constants
 import com.kennyc.view.MultiStateView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -67,7 +68,8 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
                 is ResultWrapper.Error -> {
                     showErrorDialog(
                         desc = it.message,
-                        onPositiveBtnClick = { viewModel.fetchGenres() }
+                        onPositiveBtnClick = { viewModel.fetchGenres() },
+                        isCancelable = true
                     )
                 }
             }

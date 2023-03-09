@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivMovieBackdrop"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@color/color_glossy_background_alt"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xlarge"
+                app:cardCornerRadius="@dimen/radius_default"
+                app:layout_constraintBottom_toTopOf="@id/cvDetails"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cvDetails">
+
+                <ImageView
+                    android:id="@+id/ivMoviePoster"
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:background="@color/color_glossy_background"
+                    android:scaleType="centerCrop" />
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/margin_large">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.4" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/glossyTvMovieTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="@dimen/margin_default"
+                        app:cardBackgroundColor="@color/color_glossy_background"
+                        app:cardCornerRadius="@dimen/radius_default"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="0dp" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutReleaseDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintTop_toBottomOf="@id/glossyTvMovieTitle">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="100dp"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/margin_default"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
+                            app:strokeWidth="0dp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="90dp"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="@dimen/margin_default"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
+                            app:strokeWidth="0dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xxlarge"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/layoutReleaseDate">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="90dp"
+                            android:layout_height="18dp"
+                            android:layout_marginTop="@dimen/margin_default"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
+                            app:strokeWidth="0dp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="@dimen/margin_default"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
+                            app:strokeWidth="0dp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="@dimen/margin_default"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
+                            app:strokeWidth="0dp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="260dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="@dimen/margin_default"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
+                            app:strokeWidth="0dp" />
+
+                        <LinearLayout
+                            android:id="@+id/layoutTrailer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_xlarge"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="90dp"
+                                android:layout_height="18dp"
+                                app:cardBackgroundColor="@color/color_glossy_background"
+                                app:cardCornerRadius="@dimen/radius_default"
+                                app:strokeWidth="0dp" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:layout_marginTop="@dimen/margin_default"
+                                app:cardBackgroundColor="@color/color_glossy_background"
+                                app:cardCornerRadius="@dimen/radius_default"
+                                app:strokeWidth="0dp" />
+
+                        </LinearLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_xlarge">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="90dp"
+                                android:layout_height="18dp"
+                                app:cardBackgroundColor="@color/color_glossy_background"
+                                app:cardCornerRadius="@dimen/radius_default"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:strokeWidth="0dp" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="90dp"
+                                android:layout_height="16dp"
+                                app:cardBackgroundColor="@color/color_glossy_background"
+                                app:cardCornerRadius="@dimen/radius_default"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:strokeWidth="0dp" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvReview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_review"
+                            tools:visibility="visible" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

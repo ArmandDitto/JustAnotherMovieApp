@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +15,6 @@ import com.android.justordinarymovieapp.presentation.ContainerMovieActivity
 import com.android.justordinarymovieapp.utils.Constants
 import com.android.justordinarymovieapp.utils.setAutoNullAdapter
 import com.kennyc.view.MultiStateView
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -50,13 +46,6 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     private fun setUpObserver() {
         viewModel.moviePagingLiveData.observe(viewLifecycleOwner) {
             movieAdapter.submitData(this.lifecycle, it)
-        }
-
-        this.lifecycleScope.launch {
-            movieAdapter.loadStateFlow.collectLatest {
-                binding.progressBar.isVisible = it.refresh is LoadState.Loading
-                binding.rvContent.isVisible = binding.progressBar.isVisible.not()
-            }
         }
     }
 
@@ -95,12 +84,12 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
 
                     is LoadState.NotLoading -> {
                         binding.msvMovie.viewState = MultiStateView.ViewState.CONTENT
-//                        binding.tvMovieListTitle.text = genreName
                     }
 
                     is LoadState.Error -> {
                         showErrorDialog(
-                            onPositiveBtnClick = { fetchData() }
+                            onPositiveBtnClick = { fetchData() },
+                            isCancelable = true
                         )
                     }
                 }
