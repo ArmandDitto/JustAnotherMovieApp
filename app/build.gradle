@@ -101,4 +101,13 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:5.2.0'
 
+    //RatingBar
+    implementation 'tw.com.oneup.www:reviewbar:1.0.2'
+
+    //ExpandableText
+    implementation 'io.github.glailton.expandabletextview:expandabletextview:1.0.3'
+
+    //YoutubePlayer
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
+
 }
