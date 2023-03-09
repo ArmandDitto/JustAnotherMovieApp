@@ -14,6 +14,7 @@ import com.android.justordinarymovieapp.databinding.FragmentMovieDetail2Binding
 import com.android.justordinarymovieapp.model.MovieResponse
 import com.android.justordinarymovieapp.presentation.review.ReviewAdapter
 import com.android.justordinarymovieapp.presentation.review.ReviewViewModel
+import com.android.justordinarymovieapp.utils.Constants
 import com.android.justordinarymovieapp.utils.goneView
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -26,7 +27,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
     private val movieViewModel: MovieViewModel by viewModel()
     private val reviewViewModel: ReviewViewModel by viewModel()
 
-    private val movieId by lazy { arguments?.getInt(KEY_MOVIE_ID, 0) }
+    private val movieId by lazy { arguments?.getInt(Constants.KEY_MOVIE_ID_BUNDLE, 0) }
 
     private lateinit var reviewAdapter: ReviewAdapter
 
@@ -45,10 +46,12 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
 
     }
 
+
+
     private fun setUpView() {
         binding.tvSeeAllReview.setOnClickListener {
             val args = Bundle()
-            movieId?.let { id -> args.putInt(MovieListFragment.KEY_MOVIE_ID, id) }
+            movieId?.let { id -> args.putInt(Constants.KEY_MOVIE_ID_BUNDLE, id) }
             findNavController().navigate(R.id.action_movieDetailFragment_to_reviewListFragment, args)
         }
 
@@ -144,11 +147,5 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetail2Binding>() {
         Glide.with(this)
             .load("https://image.tmdb.org/t/p/original/${data.backdropPath}")
             .into(binding.ivMovieBackdrop)
-    }
-
-    companion object {
-
-        const val KEY_MOVIE_ID = "KEY_MOVIE_ID"
-
     }
 }

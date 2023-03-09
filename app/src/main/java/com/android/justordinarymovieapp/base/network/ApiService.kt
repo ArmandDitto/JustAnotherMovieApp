@@ -11,20 +11,11 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("movie/popular")
-    suspend fun getPopularMovies(
-        @Query("page") page: Int,
-        @Query("api_key") apiKey: String
-    ): PagingWrapper<List<MovieResponse>>
-
     @GET("genre/movie/list")
-    suspend fun getAllGenres(
-        @Query("api_key") apiKey: String
-    ): GenreResponse
+    suspend fun getAllGenres(): GenreResponse
 
     @GET("discover/movie")
     suspend fun getMoviesByGenre(
-        @Query("api_key") apiKey: String,
         @Query("with_genres") genreId: Int,
         @Query("page") page: Int,
     ): PagingWrapper<List<MovieResponse>>
@@ -32,20 +23,17 @@ interface ApiService {
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String,
     ): MovieResponse
 
     @GET("movie/{movie_id}/reviews")
     suspend fun getReview(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String,
         @Query("page") page: Int,
     ): PagingWrapper<List<Review>>
 
     @GET("movie/{movie_id}/videos")
     suspend fun getMovieVideos(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String,
     ): PagingWrapper<List<Video>>
 
 }

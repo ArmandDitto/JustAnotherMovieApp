@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.paging.PagingFooterTextViewHolder
+import com.android.justordinarymovieapp.base.paging.PagingUiModel
 import com.android.justordinarymovieapp.databinding.ItemMovieBinding
 import com.android.justordinarymovieapp.databinding.LayoutPagingLoadStateBinding
 import com.android.justordinarymovieapp.model.MovieResponse
-import com.android.justordinarymovieapp.base.paging.PagingUiModel
 import com.android.justordinarymovieapp.utils.viewBinding
 import com.bumptech.glide.Glide
 
@@ -33,6 +34,27 @@ class MovieAdapter(val context: Context) :
                     .into(binding.ivMovie)
 
                 cvMovie.setOnClickListener { onRootClick?.invoke(data) }
+                val actualScore = (data.voteAverage?.times(10F))?.toInt()
+                cpRate.progress = actualScore ?: 0
+                var color: Int = R.color.color_black_transparent
+                when (actualScore) {
+                    in 0..40 -> {
+                        color = R.color.color_rate_boo
+                    }
+
+                    in 41..59 -> {
+                        color = R.color.color_rate_bad
+                    }
+
+                    in 60..79 -> {
+                        color = R.color.color_rate_ok
+                    }
+
+                    in 80..100 -> {
+                        color = R.color.color_rate_good
+                    }
+                }
+                cpRate.setIndicatorColor(context.getColor(color))
             }
         }
     }

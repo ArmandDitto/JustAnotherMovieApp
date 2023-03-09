@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        app:duration="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvGlossy"
+                android:layout_width="150dp"
+                app:cardCornerRadius="@dimen/radius_default"
+                android:layout_height="22dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp"
+                android:layout_margin="@dimen/margin_default"
+                app:cardBackgroundColor="@color/color_glossy_background">
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <include layout="@layout/item_loading_genre" />
+            <include layout="@layout/item_loading_genre" />
+            <include layout="@layout/item_loading_genre" />
+            <include layout="@layout/item_loading_genre" />
+            <include layout="@layout/item_loading_genre" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

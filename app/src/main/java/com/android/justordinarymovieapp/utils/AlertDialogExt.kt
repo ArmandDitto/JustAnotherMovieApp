@@ -16,7 +16,7 @@ fun FragmentManager.showErrorDialog(
 
     dialog.setContent(
         title = title ?: "Error",
-        desc = desc,
+        desc = desc ?: "Something went wrong",
         imageSrc = null,
         btnPositiveText = btnPositiveText ?: "Retry",
         onPositiveBtnClick = onPositiveBtnClick,

@@ -2,6 +2,7 @@ package com.android.justordinarymovieapp.di
 
 import android.content.Context
 import com.android.justordinarymovieapp.base.network.ApiService
+import com.android.justordinarymovieapp.utils.Constants
 import com.android.justordinarymovieapp.utils.JNIUtil
 import com.android.justordinarymovieapp.utils.NetworkHelper
 import com.chuckerteam.chucker.api.ChuckerCollector
@@ -13,7 +14,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -53,10 +53,25 @@ object NetworkModule {
             }
         }
 
+        val customHeaderInterceptor = Interceptor { chain ->
+            val original = chain.request()
+            val originalHttpUrl = original.url()
+
+            val url = originalHttpUrl.newBuilder()
+                .addQueryParameter(Constants.API_KEY_NAME, JNIUtil.apiKey)
+                .build()
+
+            val requestBuilder = original.newBuilder()
+                .url(url)
+
+            chain.proceed(requestBuilder.build())
+        }
+
         return OkHttpClient().newBuilder()
             .connectTimeout(30.toLong(), TimeUnit.SECONDS)
             .writeTimeout(30.toLong(), TimeUnit.SECONDS)
             .readTimeout(30.toLong(), TimeUnit.SECONDS)
+            .addInterceptor(customHeaderInterceptor)
             .addInterceptor(chuckerInterceptor)
             .addInterceptor(connectivityInterceptor)
             .build()

@@ -13,6 +13,13 @@
     <color name="color_black">#000000</color>
     <color name="color_white">#FFFFFF</color>
 
+    <color name="color_rate_boo">#FF0000</color>
+    <color name="color_rate_bad">#FFA500</color>
+    <color name="color_rate_ok">#FAFA33</color>
+    <color name="color_rate_good">#008000</color>
+
+    <color name="color_glossy_background">#DDDDDD</color>
+
     <color name="grey_button">#F4F4F4</color>
     <color name="grey_button_darker">#696969</color>
 

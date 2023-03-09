@@ -14,7 +14,6 @@ import com.android.justordinarymovieapp.base.model.PagingWrapper
 import com.android.justordinarymovieapp.base.model.ResultWrapper
 import com.android.justordinarymovieapp.base.paging.PagingUiModel
 import com.android.justordinarymovieapp.data.paging.MovieByGenrePagingSource
-import com.android.justordinarymovieapp.data.paging.MoviePagingSource
 import com.android.justordinarymovieapp.data.repository.MovieRepository
 import com.android.justordinarymovieapp.model.MovieResponse
 import com.android.justordinarymovieapp.model.video.Video
@@ -37,31 +36,6 @@ class MovieViewModel(
 
     private val _movieVideosLiveData = MutableLiveData<ResultWrapper<PagingWrapper<List<Video>>>>()
     val movieVideosLiveData: LiveData<ResultWrapper<PagingWrapper<List<Video>>>> = _movieVideosLiveData
-
-    fun fetchMovieList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            Pager(PagingConfig(pageSize = 10)) {
-                MoviePagingSource(repository)
-            }.flow
-                .map { pagingData ->
-                    pagingData.map { PagingUiModel.DataItem(it) }
-                }
-                .map {
-                    it.insertSeparators { before, after ->
-                        if (before != null && after == null) {
-                            PagingUiModel.SeparatorItem(
-                                ""
-                            )
-                        } else {
-                            return@insertSeparators null
-                        }
-                    }
-                }
-                .cachedIn(viewModelScope).collectLatest {
-                    _moviePagingLiveData.postValue(it)
-                }
-        }
-    }
 
     fun fetchMoviesByGenre(genreId: Int) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -9,16 +9,12 @@ import com.android.justordinarymovieapp.model.video.Video
 
 interface MovieRepository {
 
-    suspend fun getMovieListAsync(
-        page: Int,
-    ): PagingWrapper<List<MovieResponse>>
+    suspend fun getAllGenres(): ResultWrapper<GenreResponse>
 
     suspend fun getMoviesByGenre(
         page: Int,
         genreId: Int,
     ): PagingWrapper<List<MovieResponse>>
-
-    suspend fun getAllGenres(): ResultWrapper<GenreResponse>
 
     suspend fun getMovieDetails(
         movieId: Int,

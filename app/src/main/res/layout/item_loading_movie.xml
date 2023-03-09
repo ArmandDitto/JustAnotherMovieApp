@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="@dimen/margin_large">
 
     <com.google.android.material.card.MaterialCardView
@@ -25,6 +24,7 @@
                 android:id="@+id/cvImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/color_glossy_background"
                 app:cardCornerRadius="@dimen/radius_default"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:scaleType="centerCrop"
-                    tools:src="@tools:sample/avatars" />
+                    android:src="@color/color_glossy_background" />
 
             </androidx.cardview.widget.CardView>
 
@@ -50,34 +50,20 @@
                 app:layout_constraintStart_toEndOf="@id/cvImage"
                 app:layout_constraintTop_toTopOf="@id/cvImage">
 
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textSize="@dimen/text_xlarge"
-                    android:textStyle="bold"
-                    tools:text="Si buta dari Gua Hantu " />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="180dp"
+                    android:layout_height="28dp"
+                    app:cardBackgroundColor="@color/color_glossy_background"
+                    app:cardCornerRadius="@dimen/radius_default"
+                    app:strokeWidth="0dp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_movie_release_year"
-                        android:textSize="@dimen/text_large" />
-
-                    <TextView
-                        android:id="@+id/tvReleaseDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_large"
-                        tools:text="2019" />
-
-                </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="120dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:cardBackgroundColor="@color/color_glossy_background"
+                    app:cardCornerRadius="@dimen/radius_default"
+                    app:strokeWidth="0dp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -91,33 +77,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/cpRate"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            app:indicatorColor="@color/color_primary"
-                            app:trackColor="@color/color_black_transparent"
-                            android:max="100"
-                            tools:progress="25"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-                        <TextView
-                            android:id="@+id/tvRate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/text_default"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/cpRate"
-                            app:layout_constraintEnd_toEndOf="@id/cpRate"
-                            app:layout_constraintStart_toStartOf="@id/cpRate"
-                            app:layout_constraintTop_toTopOf="@id/cpRate"
-                            tools:text="6.6" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -129,20 +96,21 @@
                         app:layout_constraintStart_toEndOf="@id/clRate"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_movie_vote_count"
-                            android:textSize="@dimen/text_small"
-                            android:textStyle="bold" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="64dp"
+                            android:layout_height="12dp"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default" />
 
-                        <TextView
-                            android:id="@+id/tvVoteCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_large"
-                            android:textStyle="bold"
-                            tools:text="#46700" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="64dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="@dimen/margin_small"
+                            app:cardBackgroundColor="@color/color_glossy_background"
+                            app:cardCornerRadius="@dimen/radius_default"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </LinearLayout>
 
@@ -150,15 +118,14 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_default"
-                android:layout_marginBottom="@dimen/margin_default"
-                android:text="@string/label_movie_view_detail"
+            <androidx.cardview.widget.CardView
+                android:layout_width="64dp"
+                android:layout_height="14dp"
+                app:cardBackgroundColor="@color/color_glossy_background"
+                app:cardCornerRadius="@dimen/radius_default"
                 android:textColor="@color/color_primary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,7 +13,10 @@ import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.paging.PagingLoadStateAdapter
 import com.android.justordinarymovieapp.databinding.FragmentMovieListBinding
+import com.android.justordinarymovieapp.presentation.ContainerMovieActivity
+import com.android.justordinarymovieapp.utils.Constants
 import com.android.justordinarymovieapp.utils.setAutoNullAdapter
+import com.kennyc.view.MultiStateView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,7 +27,8 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     private val viewModel: MovieViewModel by viewModel()
     private lateinit var movieAdapter: MovieAdapter
 
-    private val genreId by lazy { arguments?.getInt(KEY_GENRE_ID, 0) }
+    private val genreId by lazy { arguments?.getInt(Constants.KEY_GENRE_ID_BUNDLE, 0) }
+    private val genreName by lazy { arguments?.getString(Constants.KEY_GENRE_NAME_BUNDLE, "Genre") }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieListBinding
         get() = FragmentMovieListBinding::inflate
@@ -35,6 +39,11 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
         setupListener()
         setupView()
         setUpObserver()
+        fetchData()
+
+    }
+
+    private fun fetchData() {
         genreId?.let { viewModel.fetchMoviesByGenre(it) }
     }
 
@@ -54,19 +63,46 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     private fun setupListener() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-            genreId?.let { viewModel.fetchMoviesByGenre(it) }
+            fetchData()
         }
     }
 
     private fun setupView() {
+        (requireActivity() as ContainerMovieActivity).apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.title = String.format(getString(R.string.label_title_movie_list), genreName)
+        }
+
         movieAdapter = MovieAdapter(requireContext()).apply {
             onRootClick = {
                 it.id?.let { id ->
                     val args = Bundle()
-                    args.putInt(KEY_MOVIE_ID, id)
+                    args.putInt(Constants.KEY_MOVIE_ID_BUNDLE, id)
                     findNavController().navigate(
                         R.id.action_movieListFragment_to_movieDetailFragment, args
                     )
+                }
+            }
+            addLoadStateListener { loadState ->
+                when (loadState.source.refresh) {
+                    is LoadState.Loading -> {
+                        if (this.itemCount == 0) {
+                            binding.msvMovie.viewState = MultiStateView.ViewState.LOADING
+                        } else {
+                            binding.msvMovie.viewState = MultiStateView.ViewState.LOADING
+                        }
+                    }
+
+                    is LoadState.NotLoading -> {
+                        binding.msvMovie.viewState = MultiStateView.ViewState.CONTENT
+//                        binding.tvMovieListTitle.text = genreName
+                    }
+
+                    is LoadState.Error -> {
+                        showErrorDialog(
+                            onPositiveBtnClick = { fetchData() }
+                        )
+                    }
                 }
             }
         }
@@ -81,20 +117,6 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
                     onRetry = { movieAdapter.retry() }
                 }
             ))
-        }
-    }
-
-    companion object {
-
-        const val KEY_GENRE_ID = "KEY_GENRE_ID"
-        const val KEY_MOVIE_ID = "KEY_MOVIE_ID"
-
-        fun newInstance(genreId: Int): MovieListFragment {
-            return MovieListFragment().apply {
-                val bundle = Bundle()
-                bundle.putInt(KEY_GENRE_ID, genreId)
-                arguments = bundle
-            }
         }
     }
 }

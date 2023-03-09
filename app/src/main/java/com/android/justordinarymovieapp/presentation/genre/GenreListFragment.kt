@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.model.ResultWrapper
-import com.android.justordinarymovieapp.base.view.loading.ProgressDialog
 import com.android.justordinarymovieapp.databinding.FragmentGenreListBinding
+import com.android.justordinarymovieapp.utils.Constants
+import com.kennyc.view.MultiStateView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
@@ -26,13 +27,12 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
 
         genreAdapter = GenreAdapter().apply {
             onClick = {
-                it.id?.let { id ->
-                    val args = Bundle()
-                    args.putInt(KEY_GENRE_ID, id)
-                    findNavController().navigate(
-                        R.id.action_genreListFragment_to_movieListFragment, args
-                    )
-                }
+                val args = Bundle()
+                args.putInt(Constants.KEY_GENRE_ID_BUNDLE, it.id ?: 0)
+                args.putString(Constants.KEY_GENRE_NAME_BUNDLE, it.name)
+                findNavController().navigate(
+                    R.id.action_genreListFragment_to_movieListFragment, args
+                )
             }
         }
 
@@ -56,16 +56,15 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
         viewModel.genresLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is ResultWrapper.Loading -> {
-                    ProgressDialog.show(requireContext())
+                    binding.msvGenre.viewState = MultiStateView.ViewState.LOADING
                 }
 
                 is ResultWrapper.Success -> {
-                    ProgressDialog.dismiss()
+                    binding.msvGenre.viewState = MultiStateView.ViewState.CONTENT
                     it.value.genres?.let { genres -> genreAdapter.addItems(genres) }
                 }
 
                 is ResultWrapper.Error -> {
-                    ProgressDialog.dismiss()
                     showErrorDialog(
                         desc = it.message,
                         onPositiveBtnClick = { viewModel.fetchGenres() }
@@ -73,11 +72,5 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
                 }
             }
         }
-    }
-
-    companion object {
-
-        const val KEY_GENRE_ID = "KEY_GENRE_ID"
-
     }
 }

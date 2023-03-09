@@ -110,4 +110,10 @@ dependencies {
     //YoutubePlayer
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 
+    //Multistate View
+    implementation 'com.github.Kennyc1012:MultiStateView:2.2.0'
+
+    //Shimmering
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
 }

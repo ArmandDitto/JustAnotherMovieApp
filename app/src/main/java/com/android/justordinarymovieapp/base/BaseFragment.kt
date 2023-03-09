@@ -13,6 +13,7 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
+import com.android.justordinarymovieapp.utils.showDefaultToast
 import com.android.justordinarymovieapp.utils.showErrorDialog
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -29,6 +30,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     open fun shouldAddBackStackListener(): Boolean = false
     protected var fragmentBackStackListener: FragmentManager.OnBackStackChangedListener? = null
+
+    var hasInitializedRootView = false
+    private var rootView: View? = null
 
     @CallSuper
     override fun onCreateView(
@@ -73,6 +77,22 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         onBackPressCallback?.isEnabled = parentFragmentManager.fragments.lastOrNull() == this
     }
 
+    fun getPersistentView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?, layout: Int): View? {
+        if (rootView == null) {
+            // Inflate the layout for this fragment
+            rootView = inflater?.inflate(layout,container,false)
+        } else {
+            // Do not inflate the layout again.
+            // The returned View of onCreateView will be added into the fragment.
+            // However it is not allowed to be added twice even if the parent is same.
+            // So we must remove rootView from the existing parent view group
+            // (it will be added back).
+            (rootView?.getParent() as? ViewGroup)?.removeView(rootView)
+        }
+
+        return rootView
+    }
+
     fun showErrorDialog(
         title: String? = null,
         desc: String? = null,
@@ -91,6 +111,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             withCloseIcon = withCloseIcon,
             isCancelable = isCancelable
         )
+    }
+
+    fun showToast(message: String) {
+        requireContext().showDefaultToast(message)
     }
 
 }

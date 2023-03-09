@@ -1,8 +1,10 @@
 package com.android.justordinarymovieapp.utils
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.RecyclerView
@@ -33,4 +35,11 @@ internal fun RecyclerView.clearAdapter() {
 
 fun NavController.safeNavigate(direction: NavDirections) {
     currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
+}
+
+fun Context.showDefaultToast(
+    message: String,
+    duration: Int = Toast.LENGTH_SHORT
+) {
+    Toast.makeText(this, message, duration).show()
 }
