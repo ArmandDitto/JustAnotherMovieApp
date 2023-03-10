@@ -3,13 +3,10 @@ package com.android.justordinarymovieapp.data.repository
 import com.android.justordinarymovieapp.base.model.PagingWrapper
 import com.android.justordinarymovieapp.base.model.ResultWrapper
 import com.android.justordinarymovieapp.model.MovieResponse
-import com.android.justordinarymovieapp.model.genre.GenreResponse
 import com.android.justordinarymovieapp.model.review.Review
 import com.android.justordinarymovieapp.model.video.Video
 
 interface MovieRepository {
-
-    suspend fun getAllGenres(): ResultWrapper<GenreResponse>
 
     suspend fun getMoviesByGenre(
         page: Int,

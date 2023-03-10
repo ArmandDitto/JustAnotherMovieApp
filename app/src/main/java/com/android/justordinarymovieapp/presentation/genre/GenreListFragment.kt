@@ -10,7 +10,6 @@ import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.model.ResultWrapper
 import com.android.justordinarymovieapp.databinding.FragmentGenreListBinding
-import com.android.justordinarymovieapp.presentation.movie.MovieListFragmentDirections
 import com.android.justordinarymovieapp.utils.Constants
 import com.kennyc.view.MultiStateView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,6 +25,20 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupView()
+        initObserver()
+        setupListener()
+        viewModel.fetchGenres()
+    }
+
+    private fun setupListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            viewModel.fetchGenres()
+        }
+    }
+
+    private fun setupView() {
         genreAdapter = GenreAdapter().apply {
             onClick = {
                 val args = Bundle()
@@ -40,16 +53,6 @@ class GenreListFragment : BaseFragment<FragmentGenreListBinding>() {
         binding.rvGenre.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = genreAdapter
-        }
-        initObserver()
-        setupListener()
-        viewModel.fetchGenres()
-    }
-
-    private fun setupListener() {
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = false
-            viewModel.fetchGenres()
         }
     }
 

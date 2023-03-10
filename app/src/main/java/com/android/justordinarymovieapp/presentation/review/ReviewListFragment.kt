@@ -13,6 +13,7 @@ import com.android.justordinarymovieapp.databinding.FragmentReviewListBinding
 import com.android.justordinarymovieapp.presentation.ContainerMovieActivity
 import com.android.justordinarymovieapp.utils.Constants
 import com.android.justordinarymovieapp.utils.setAutoNullAdapter
+import com.android.justordinarymovieapp.utils.setupToolbar
 import com.kennyc.view.MultiStateView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,10 +52,10 @@ class ReviewListFragment : BaseFragment<FragmentReviewListBinding>() {
     }
 
     private fun setupView() {
-        (requireActivity() as ContainerMovieActivity).apply {
-            setSupportActionBar(binding.toolbar)
-            supportActionBar?.title = getString(R.string.label_title_review_list)
-        }
+        setupToolbar(
+            binding.vToolbar,
+            getString(R.string.label_title_review_list)
+        )
 
         reviewAdapter = ReviewPagingAdapter(requireContext()).apply {
             addLoadStateListener { loadState ->

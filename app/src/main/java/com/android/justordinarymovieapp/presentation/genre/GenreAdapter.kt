@@ -4,17 +4,18 @@ import android.annotation.SuppressLint
 import com.android.justordinarymovieapp.base.BaseBindingAdapter
 import com.android.justordinarymovieapp.base.BaseBindingViewHolder
 import com.android.justordinarymovieapp.databinding.ItemGenreBinding
+import com.android.justordinarymovieapp.model.genre.Genre
 import com.android.justordinarymovieapp.model.genre.GenreResponse
 import com.android.justordinarymovieapp.utils.Utils
 
 
 class GenreAdapter : BaseBindingAdapter<BaseBindingViewHolder, ItemGenreBinding>() {
 
-    var listItems = mutableListOf<GenreResponse.Genre>()
-    var onClick: ((genre: GenreResponse.Genre) -> Unit)? = null
+    var listItems = mutableListOf<Genre>()
+    var onClick: ((genre: Genre) -> Unit)? = null
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItems(list: List<GenreResponse.Genre>) {
+    fun addItems(list: List<Genre>) {
         listItems.clear()
         listItems.addAll(list)
         notifyDataSetChanged()

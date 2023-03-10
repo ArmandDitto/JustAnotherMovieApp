@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
 }
 
@@ -23,7 +24,11 @@ android {
         staging {
             dimension "variant"
             applicationIdSuffix '.staging'
-            resValue "string", "app_name", "Ordinary Moview App (Staging)"
+            resValue "string", "app_name", "Ordinary Movie App (Staging)"
+            manifestPlaceholders = [
+                    appIcon : "@mipmap/ic_launcher_joma_dev",
+                    roundIcon : "@mipmap/ic_launcher_joma_dev_round"
+            ]
             externalNativeBuild{
                 cmake {
                     arguments.add("-DM_API=staging")
@@ -32,7 +37,11 @@ android {
         }
         production {
             dimension "variant"
-            resValue "string", "app_name", "Ordinary Moview App"
+            resValue "string", "app_name", "Ordinar Moview App"
+            manifestPlaceholders = [
+                    appIcon : "@mipmap/ic_launcher_joma",
+                    roundIcon : "@mipmap/ic_launcher_joma_round"
+            ]
             externalNativeBuild{
                 cmake {
                     arguments.add("-DM_API=production")
@@ -115,5 +124,11 @@ dependencies {
 
     //Shimmering
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //RoomDB
+    implementation "androidx.room:room-runtime:2.5.0"
+    implementation "androidx.room:room-ktx:2.5.0"
+    annotationProcessor "androidx.room:room-compiler:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.0"
 
 }

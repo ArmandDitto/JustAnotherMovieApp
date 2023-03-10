@@ -11,20 +11,21 @@ import com.android.justordinarymovieapp.R
 import com.android.justordinarymovieapp.base.BaseFragment
 import com.android.justordinarymovieapp.base.paging.PagingLoadStateAdapter
 import com.android.justordinarymovieapp.databinding.FragmentMovieListBinding
-import com.android.justordinarymovieapp.presentation.ContainerMovieActivity
+import com.android.justordinarymovieapp.presentation.genre.GenreViewModel
 import com.android.justordinarymovieapp.utils.Constants
 import com.android.justordinarymovieapp.utils.setAutoNullAdapter
+import com.android.justordinarymovieapp.utils.setupToolbar
 import com.kennyc.view.MultiStateView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
 
-    private val viewModel: MovieViewModel by viewModel()
+    private val movieViewModel: MovieViewModel by viewModel()
+    private val genreViewModel: GenreViewModel by viewModel()
     private lateinit var movieAdapter: MovieAdapter
 
     private val genreId by lazy { arguments?.getInt(Constants.KEY_GENRE_ID_BUNDLE, 0) }
-    private val genreName by lazy { arguments?.getString(Constants.KEY_GENRE_NAME_BUNDLE, "Genre") }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieListBinding
         get() = FragmentMovieListBinding::inflate
@@ -40,12 +41,20 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     }
 
     private fun fetchData() {
-        genreId?.let { viewModel.fetchMoviesByGenre(it) }
+        genreId?.let { movieViewModel.fetchMoviesByGenre(it) }
+        genreId?.let { genreViewModel.getGenreName(it) }
     }
 
     private fun setUpObserver() {
-        viewModel.moviePagingLiveData.observe(viewLifecycleOwner) {
+        movieViewModel.moviePagingLiveData.observe(viewLifecycleOwner) {
             movieAdapter.submitData(this.lifecycle, it)
+        }
+
+        genreViewModel.genreNameLiveData.observe(viewLifecycleOwner) {
+            setupToolbar(
+                binding.vToolbar,
+                String.format(getString(R.string.label_title_movie_list), it)
+            )
         }
     }
 
@@ -57,10 +66,6 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
     }
 
     private fun setupView() {
-        (requireActivity() as ContainerMovieActivity).apply {
-            setSupportActionBar(binding.toolbar)
-            supportActionBar?.title = String.format(getString(R.string.label_title_movie_list), genreName)
-        }
 
         movieAdapter = MovieAdapter(requireContext()).apply {
             onRootClick = {

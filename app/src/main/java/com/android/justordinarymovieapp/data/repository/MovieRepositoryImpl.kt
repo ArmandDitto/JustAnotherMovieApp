@@ -5,7 +5,6 @@ import com.android.justordinarymovieapp.base.model.ResultWrapper
 import com.android.justordinarymovieapp.base.network.ApiService
 import com.android.justordinarymovieapp.base.network.safeApiCall
 import com.android.justordinarymovieapp.model.MovieResponse
-import com.android.justordinarymovieapp.model.genre.GenreResponse
 import com.android.justordinarymovieapp.model.review.Review
 import com.android.justordinarymovieapp.model.video.Video
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,10 +14,6 @@ class MovieRepositoryImpl(
     private val api: ApiService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : MovieRepository {
-
-    override suspend fun getAllGenres(): ResultWrapper<GenreResponse> {
-        return safeApiCall(dispatcher) { api.getAllGenres() }
-    }
 
     override suspend fun getMoviesByGenre(
         page: Int,
